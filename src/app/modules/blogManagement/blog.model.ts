@@ -3,9 +3,7 @@ import { TBlog } from './blog.interface';
 
 const BlogSchema = new Schema<TBlog>({
   title: { type: String, required: true },
-
-  short_description: { type: String, required: true },
-  long_description: { type: String, required: true },
+  content: { type: String, required: true },
   image: { type: String, required: true },
 });
 

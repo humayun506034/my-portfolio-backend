@@ -15,6 +15,8 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
+      "https://humayun506034-dashboard.vercel.app",
+      "https://humayun506034.vercel.app"
     ],
     credentials: true,
   }),
