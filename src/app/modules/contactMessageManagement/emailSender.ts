@@ -1,31 +1,41 @@
-import nodemailer from "nodemailer";
 import config from "../../config";
 
-const emailSender = async (email:string, html:string) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for port 465, false for other ports
-    auth: {
-      user: config.emailSender.email,
-      pass: config.emailSender.app_pass,
+const emailSender = async (email: string, html: string) => {
+  const apiKey = config.brevo.api_key;
+  const senderEmail = config.brevo.sender_email;
+  const senderName = config.brevo.sender_name || "Portfolio";
+
+  if (!apiKey || !senderEmail) {
+    throw new Error(
+      "Brevo configuration is missing. Set BREVO_API_KEY and BREVO_SENDER_EMAIL in .env.",
+    );
+  }
+
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "api-key": apiKey,
     },
-    // tls:{
-    //     rejectUnauthorized:false
-    // }
+    body: JSON.stringify({
+      sender: {
+        name: senderName,
+        email: senderEmail,
+      },
+      to: [{ email }],
+      subject: "Thanks for contact...",
+      htmlContent: html,
+    }),
   });
 
-  // send mail with defined transport object
-  const info = await transporter.sendMail({
-    from: '"Md. Humayun Kabir Sobuj" <mdhumayunkabirbd333@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: "Thanks for contact...", // Subject line
-    // text: "Hello world?", // plain text body
-    html, // html body
-  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Brevo email send failed: ${response.status} ${errorText}`);
+  }
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+  const result = await response.json();
+  console.log("Brevo message sent:", result?.messageId || "ok");
 };
 
 export default emailSender;

@@ -2,8 +2,9 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import config from './app/config';
 import app from './app';
-
+import dns from 'node:dns/promises';
 let server: Server;
+dns.setServers(['1.1.1.1', '8.8.8.8']);
 
 async function main() {
   try {

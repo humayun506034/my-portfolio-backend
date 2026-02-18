@@ -15,9 +15,10 @@ export default {
 
   store_id: process.env.STORE_ID,
   store_pass: process.env.STORE_PASS,
-   emailSender:{
-    email:process.env.EMAIL,
-    app_pass:process.env.APP_PASS
+   brevo:{
+    api_key:process.env.BREVO_API_KEY,
+    sender_email:process.env.BREVO_SENDER_EMAIL,
+    sender_name:process.env.BREVO_SENDER_NAME
   }
 
 

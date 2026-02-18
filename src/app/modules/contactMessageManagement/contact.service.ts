@@ -17,7 +17,7 @@ const sendMessage = async (data: Record<string, string>) => {
   const { name, phone, subject, email, message } = data;
 
   await emailSender(
-    'devhumayun.tech@gmail.com',
+    'humayun506034@gmail.com',
 
     `<div style="max-width: 100%; padding: 20px; background: #f4f4f7; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);">
