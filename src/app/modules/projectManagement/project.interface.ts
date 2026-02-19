@@ -4,7 +4,6 @@ export interface TProject {
   client_link: string;
   server_link: string;
   short_description: string;
-  long_description: string;
   technology:string;
   image: string;
  

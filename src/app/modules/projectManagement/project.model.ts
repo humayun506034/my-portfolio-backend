@@ -7,7 +7,6 @@ const ProjectSchema = new Schema<TProject>({
   client_link: { type: String, required: true },
   server_link: { type: String, required: true },
   short_description: { type: String, required: true },
-  long_description: { type: String, required: true },
   technology: { type: String, required: true },
   image: { type: String, required: true },
  
