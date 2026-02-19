@@ -33,7 +33,11 @@ const deletedProjectIntoDB = async (id: string) => {
   return result;
 };
 const updateProjectIntoDB = async (id: string, projectInfo: Partial<TProject>) => {
-  const result = await Project.findByIdAndUpdate(id, { ...projectInfo });
+  const result = await Project.findByIdAndUpdate(
+  id,
+  { ...projectInfo },
+  { new: true }
+);
   await refreshProjectsCache();
   return result;
 };
